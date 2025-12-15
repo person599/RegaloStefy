@@ -1,4 +1,4 @@
-const CACHE_NAME = 'regalo-stefy-v67';
+const CACHE_NAME = 'regalo-stefy-v1';
 const urlsToCache = [
   '/',
   '/index.html',
