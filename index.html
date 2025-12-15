@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un regalo per la Stefy🎄</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="icons/regalo.png" type="image/png">
+    <style>
+        #music-toggle {
+            position: fixed;
+            top: 15px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            border-radius: 50%;
+            padding: 8px 12px ;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+        }
+    </style>
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <audio id="menu-music" src="audios/menumusic.mp3" loop></audio>
+
+    <button id="music-toggle">🔇</button>
+    <!-- Top navigation: due bottoni per cambiare pagina -->
+     <div class="top-nav" role="navigation" aria-label="Top navigation">
+        <button class="nav-button" onclick="switchPage('mainPage')"><span>Regalo</span></button>
+        <button class="nav-button" onclick="switchPage('countdownPage')"><span>Bah....</span></button>
+    </div>
+
+    <!-- Pagina Principale -->
+    <div id="mainPage" class="page active">
+        <!-- Particelle di neve avanzate -->
+        <div class="snow-container"></div>
+        
+        <!-- Alberi 3D ultra realistici -->
+        <div class="trees-3d">
+            <div class="tree3d tree3d-1">
+                <div class="tree-layer layer-1"></div>
+                <div class="tree-layer layer-2"></div>
+                <div class="tree-layer layer-3"></div>
+                <div class="tree-layer layer-4"></div>
+                <div class="tree-trunk"></div>
+                <div class="star">⭐</div>
+            </div>
+            <div class="tree3d tree3d-2">
+                <div class="tree-layer layer-1"></div>
+                <div class="tree-layer layer-2"></div>
+                <div class="tree-layer layer-3"></div>
+                <div class="tree-layer layer-4"></div>
+                <div class="tree-trunk"></div>
+                <div class="star">⭐</div>
+            </div>
+        </div>
+
+        <!-- Luci natalizie superiori -->
+        <div class="string-lights">
+            <div class="light red"></div>
+            <div class="light yellow"></div>
+            <div class="light blue"></div>
+            <div class="light green"></div>
+            <div class="light red"></div>
+            <div class="light yellow"></div>
+            <div class="light blue"></div>
+            <div class="light green"></div>
+            <div class="light red"></div>
+            <div class="light yellow"></div>
+        </div>
+
+        <!-- Card principale con eff    etto 3D -->
+        <div class="card-container">
+            <div class ="card-3d">
+                <div class="card-face card-front">
+                    <div class="ornaments">
+                        <div class="ornament red"></div>
+                        <div class="ornament gold"></div>
+                        <div class="ornament silver"></div>
+                    </div>
+                    
+                    <h1 class="title-main">
+                        <span class="title-word">Buon<br></span>
+                        <span class="title-word">Natale!<br></span>
+                        <span class="title-emoji">🎄<br></span>
+                    </h1>
+                    
+                    <div class="message-box">
+                        <p class="message-text">
+                            <span class="line">Stefyyyyy, sto usando le mie uniche capacità per farti</span>
+                            <span class="line">qualcosa di <strong>specialeeee</strong>...</span>
+                        </p>
+                        <p class="message-text">
+                            <span class="line">Allloraaa, prima di tutto ti auguro un buon Natale</span>
+                            <span class="line">e un felice anno nuovo,</span>
+                            <span class="line">spero che ti porti cose belle e ti riempia di gioia.</span>
+                            <span class="line">E magari questo è l’anno buono per ricordarti del mio compleanno:</span>
+                            <span class="line highlight">il 5 maggio</span>
+                        </p>
+                        <p class="message-text">
+                            <span class="line">Grazie per essere un'amica fantastica.</span>
+                            <span class="line">Rinnovo il contratto anche per il prossimo anno, dai…</span>
+                            <span class="line">✨✨✨✨✨✨✨✨✨✨</span>
+                        </p>
+                        <p class="message-final">
+                            Buone Feste! 🎅🎁
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Regali decorativi -->
+        <div class="gifts">
+            <div class="gift gift-1"></div>
+            <div class="gift gift-2"></div>
+            <div class="gift gift-3"></div>
+        </div>
+    </div>
+
+    <!-- Pagina Countdown -->
+    <div id="countdownPage" class="page">
+        <!-- Neve per countdown page -->
+        <div class="snow-container"></div>
+
+        <!-- Background particelle -->
+        <div class="particles"></div>
+
+        <div class="countdown-container">
+
+            <div class="countdown-card">
+                <h2 class="countdown-header">
+                    <span class="header-icon">⏰</span>
+                    <span class="header-text">Countdown Speciale</span>
+                </h2>
+                <p class="countdown-tagline">(stavolta NON te lo scordi! 😉)</p>
+
+                <div class="timer-display">
+                    <div class="timer-unit">
+                        <div class="timer-value" id="days">000</div>
+                        <div class="timer-label">Giorni</div>
+                    </div>
+                    <div class="timer-separator">:</div>
+                    <div class="timer-unit">
+                        <div class="timer-value" id="hours">00</div>
+                        <div class="timer-label">Ore</div>
+                    </div>
+                    <div class="timer-separator">:</div>
+                    <div class="timer-unit">
+                        <div class="timer-value" id="minutes">00</div>
+                        <div class="timer-label">Minuti</div>
+                    </div>
+                    <div class="timer-separator">:</div>
+                    <div class="timer-unit">
+                        <div class="timer-value" id="seconds">00</div>
+                        <div class="timer-label">Secondi</div>
+                    </div>
+                </div>
+
+                <div class="target-info">
+                    <span class="target-icon">🎂</span>
+                    <span class="target-text">5 Maggio 2025</span>
+                    <span class="target-icon">🎉</span>
+                </div>
+
+                <div class="birthday-message">
+                    <p>Il giorno che non si può dimenticare!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div id="pwa-install-banner" class="pwa-banner">
+        <div class="pwa-content">
+            <span class="pwa-icon">📲</span>
+            <div class="pwa-text">
+                <strong>Installa!!!!!!!</strong>
+                <p>Installa subito questa pagina così ti ricorderai sempre di me (e del mio compleanno, scema) 😊😊😊</p>
+            </div>
+            <div class="pwa-buttons">
+                <button id="pwa-install-btn" class="pwa-btn confirm">Installa</button>
+                <button id="pwa-dismiss-btn" class="pwa-btn cancel">No, grazie</button>
+            </div>
+        </div>
+    </div>-->
+
+    <script src="script.js"></script>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./sw.js")
+                    .then(reg => console.log("SW registrato con successo:", reg.scope))
+                    .catch(err => console.error("Errore registrazione SW:", err));
+            });
+        }
+
+    </script>
+</body>
+</html>
