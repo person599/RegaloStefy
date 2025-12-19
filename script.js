@@ -1,57 +1,61 @@
+// ========== PAGE SWITCHING ==========
 function switchPage(targetId) {
     const main = document.getElementById('mainPage');
     const countdown = document.getElementById('countdownPage');
+    
+    if (!main || !countdown) return;
 
-    if (targetId) {
-        if (targetId === 'mainPage') {
-            countdown.classList.remove('active');
-            main.classList.add('active');
-        } else if (targetId === 'countdownPage') {
-            main.classList.remove('active');
-            countdown.classList.add('active');
-        }
-        return;
-    }
-
-    if (main.classList.contains('active')) {
-        main.classList.remove('active');
-        countdown.classList.add('active');
-    } else {
+    if (targetId === 'mainPage') {
         countdown.classList.remove('active');
         main.classList.add('active');
+    } else if (targetId === 'countdownPage') {
+        main.classList.remove('active');
+        countdown.classList.add('active');
     }
 }
 
 function createSnow() {
     const snowContainers = document.querySelectorAll('.snow-container');
-    const snowflakeCount = 100;
+    const isMobile = window.innerWidth < 600;
+    const snowflakeCount = isMobile ? 200 : 300;
     
     snowContainers.forEach(container => {
+        container.innerHTML = '';
+        
         for (let i = 0; i < snowflakeCount; i++) {
             const snowflake = document.createElement('div');
             snowflake.textContent = '❄';
-            snowflake.style.position = 'absolute';
-            snowflake.style.color = 'white';
-            snowflake.style.left = Math.random() * 100 + '%';
-            snowflake.style.top = Math.random() * -100 + 'px';
-            snowflake.style.animationName = 'snowfall';
-            snowflake.style.animationDuration = (10 + Math.random() * 10) + 's';
-            snowflake.style.animationDelay = Math.random() * 5 + 's';
-            snowflake.style.animationIterationCount = 'infinite';
-            snowflake.style.animationTimingFunction = 'linear';
-            snowflake.style.opacity = 0.6 + Math.random() * 0.4;
-            snowflake.style.fontSize = (8 + Math.random() * 16) + 'px';
-            snowflake.style.userSelect = 'none';
-            snowflake.style.pointerEvents = 'none';
+            snowflake.style.cssText = `
+                position: absolute;
+                color: white;
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * -100}px;
+                animation: snowfall ${8 + Math.random() * 12}s linear infinite;
+                animation-delay: ${Math.random() * 10}s;
+                opacity: ${0.4 + Math.random() * 0.6};
+                font-size: ${6 + Math.random() * 16}px;
+                user-select: none;
+                pointer-events: none;
+                will-change: transform;
+            `;
             container.appendChild(snowflake);
         }
     });
 }
 
+// ========== COUNTDOWN ==========
 function updateCountdown() {
     const target = new Date('2026-05-05T00:00:00').getTime();
-    const now = new Date().getTime();
+    const now = Date.now();
     const diff = target - now;
+    
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const messageEl = document.querySelector('.birthday-message p');
+    
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
     
     if (diff > 0) {
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -59,106 +63,141 @@ function updateCountdown() {
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         
-        document.getElementById('days').textContent = String(days).padStart(3, '0');
-        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        daysEl.textContent = String(days).padStart(3, '0');
+        hoursEl.textContent = String(hours).padStart(2, '0');
+        minutesEl.textContent = String(minutes).padStart(2, '0');
+        secondsEl.textContent = String(seconds).padStart(2, '0');
     } else {
-        document.getElementById('days').textContent = '000';
-        document.getElementById('hours').textContent = '00';
-        document.getElementById('minutes').textContent = '00';
-        document.getElementById('seconds').textContent = '00';
-        document.querySelector('.birthday-message p').textContent = '🎉 È OGGI! AUGURI! 🎉';
+        daysEl.textContent = '000';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        if (messageEl) {
+            messageEl.textContent = '🎉 È OGGI! AUGURI! 🎉';
+        }
     }
 }
 
-const musicToggle = document.getElementById('music-toggle');
-const menuMusic = document.getElementById('menu-music');
-let isPlaying = false;
-
-musicToggle.addEventListener('click', () => {
-    if (isPlaying) {
-        menuMusic.pause();
-        musicToggle.textContent = '🔇';
-        console.log('Musica in pausa');
-        isPlaying = false;
-    } else {
-        menuMusic.play();
-        musicToggle.textContent = '🔊';
-        console.log('Musica in riproduzione');
-        isPlaying = true;
-    }
-});
-
-/* --- GESTIONE PWA INSTALLAZIONE --- */    
-
-document.addEventListener('DOMContentLoaded', () => {
+// ========== MUSIC TOGGLE ==========
+function initMusic() {
+    const musicToggle = document.getElementById('music-toggle');
+    const menuMusic = document.getElementById('menu-music');
     
+    if (!musicToggle || !menuMusic) return;
+    
+    let isPlaying = false;
+    
+    musicToggle.addEventListener('click', function() {
+        if (isPlaying) {
+            menuMusic.pause();
+            musicToggle.textContent = '🔇';
+            isPlaying = false;
+        } else {
+            menuMusic.play().then(function() {
+                musicToggle.textContent = '🔊';
+                isPlaying = true;
+            }).catch(function() {
+                // Autoplay blocked, do nothing
+                console.log('Autoplay blocked');
+            });
+        }
+    });
+}
+
+// ========== PWA INSTALL ==========
+function initPWA() {
     const pwaBanner = document.getElementById('pwa-install-banner');
     const installBtn = document.getElementById('pwa-install-btn');
     const dismissBtn = document.getElementById('pwa-dismiss-btn');
-    let deferredPrompt;
-
-    // Controllo sicurezza elementi
-    if (!pwaBanner || !installBtn || !dismissBtn) {
-        console.error("ERRORE: Elementi banner non trovati.");
-        return;
-    }
+    
+    if (!pwaBanner || !installBtn || !dismissBtn) return;
+    
+    let deferredPrompt = null;
 
     function shouldShowInstallPrompt() {
-        // 1. Se l'abbiamo già installata, non mostrarlo
         if (localStorage.getItem('pwaInstalled') === 'true') return false;
-
-        // 2. Se l'app è già aperta come App (standalone), non mostrarlo
         if (window.matchMedia('(display-mode: standalone)').matches) return false;
-
-        // RIMOSSO: Il controllo su 'pwaDismissed'. 
-        // Ora mostrerà il banner ogni volta che ricarichi, finché non installi.
         return true;
     }
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-        // Impedisce al browser di mostrare il banner standard (e genera quel warning in console, è normale)
+    window.addEventListener('beforeinstallprompt', function(e) {
         e.preventDefault();
         deferredPrompt = e;
-        console.log("Evento catturato. Pronto a mostrare il banner.");
-
+        
         if (shouldShowInstallPrompt()) {
-            pwaBanner.style.display = 'block'; 
+            pwaBanner.style.display = 'block';
         }
     });
 
-    installBtn.addEventListener('click', async () => {
+    installBtn.addEventListener('click', function() {
         if (deferredPrompt) {
             deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`Esito: ${outcome}`);
-            
-            // Se l'utente accetta, nascondiamo il banner per sempre
-            if (outcome === 'accepted') {
-                deferredPrompt = null;
-                pwaBanner.style.display = 'none';
-            }
-            // Se rifiuta, il banner sparisce solo per ora, ma tornerà al reload
+            deferredPrompt.userChoice.then(function(choiceResult) {
+                if (choiceResult.outcome === 'accepted') {
+                    deferredPrompt = null;
+                    pwaBanner.style.display = 'none';
+                }
+            });
         }
     });
 
-    dismissBtn.addEventListener('click', () => {
-        // Nasconde il banner SOLO per questa sessione
+    dismissBtn.addEventListener('click', function() {
         pwaBanner.style.display = 'none';
-        
-        // RIMOSSO: localStorage.setItem('pwaDismissed', 'true');
-        // Anzi, per sicurezza rimuoviamo eventuali blocchi precedenti:
-        localStorage.removeItem('pwaDismissed');
     });
 
-    window.addEventListener('appinstalled', () => {
-        console.log('App installata!');
+    window.addEventListener('appinstalled', function() {
         pwaBanner.style.display = 'none';
         localStorage.setItem('pwaInstalled', 'true');
     });
+}
+
+// ========== PREVENT SCROLL BOUNCE ON IOS ==========
+function preventOverscroll() {
+    document.body.addEventListener('touchmove', function(e) {
+        const target = e.target;
+        const page = target.closest('.page.active');
+        
+        if (page) {
+            const isScrollable = page.scrollHeight > page.clientHeight;
+            const isAtTop = page.scrollTop <= 0;
+            const isAtBottom = page.scrollTop + page.clientHeight >= page.scrollHeight;
+            
+            if (!isScrollable || (isAtTop && e.touches[0].clientY > 0) || isAtBottom) {
+                // Allow normal behavior
+            }
+        }
+    }, { passive: true });
+}
+
+// ========== HANDLE RESIZE ==========
+let resizeTimeout;
+function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
+        createSnow();
+    }, 250);
+}
+
+// ========== INITIALIZATION ==========
+document.addEventListener('DOMContentLoaded', function() {
+    initMusic();
+    initPWA();
+    createSnow();
+    updateCountdown();
+    preventOverscroll();
+    
+    // Update countdown every second
+    setInterval(updateCountdown, 1000);
+    
+    // Recreate snow on resize
+    window.addEventListener('resize', handleResize);
 });
 
-createSnow();
-setInterval(updateCountdown, 1000);
-updateCountdown();
+// Fallback if DOMContentLoaded already fired
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initMusic();
+    initPWA();
+    createSnow();
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}

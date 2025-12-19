@@ -1,10 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un regalo per la Stefy🎄</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#466fea">
+    <meta name="description" content="Un regalo speciale per Stefy - Buon Natale!">
+    
+    
+    <title>Un regalo per la Stefy 🎄</title>
+    
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="icons/regalo.png" type="image/png">
     <style>
@@ -23,24 +29,37 @@
         }
     </style>
     <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-    <audio id="menu-music" src="audios/menumusic.mp3" loop></audio>
+    <!-- Audio di sottofondo -->
+    <audio id="menu-music" loop preload="none">
+        <source src="audios/menumusic.mp3" type="audio/mpeg">
+    </audio>
 
-    <button id="music-toggle">🔇</button>
-    <!-- Top navigation: due bottoni per cambiare pagina -->
-     <div class="top-nav" role="navigation" aria-label="Top navigation">
-        <button class="nav-button" onclick="switchPage('mainPage')"><span>Regalo</span></button>
-        <button class="nav-button" onclick="switchPage('countdownPage')"><span>Bah....</span></button>
-    </div>
+    <!-- Pulsante musica -->
+    <button id="music-toggle" aria-label="Toggle musica">🔇</button>
 
-    <!-- Pagina Principale -->
+    <!-- Navigazione -->
+    <nav class="top-nav" role="navigation" aria-label="Navigazione principale">
+        <p class="nav-title">Questi sono dei bottoni:</p>
+        <div class="button-group">
+            <button class="nav-button" onclick="switchPage('mainPage')" type="button">
+                <span>Regalo</span>
+            </button>
+            <button class="nav-button" onclick="switchPage('countdownPage')" type="button">
+                <span>Sema</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========== PAGINA PRINCIPALE ========== -->
     <div id="mainPage" class="page active">
-        <!-- Particelle di neve avanzate -->
-        <div class="snow-container"></div>
+        <div class="snow-container" aria-hidden="true"></div>
         
-        <!-- Alberi 3D ultra realistici -->
-        <div class="trees-3d">
+        <!-- Alberi decorativi -->
+        <div class="trees-3d" aria-hidden="true">
             <div class="tree3d tree3d-1">
                 <div class="tree-layer layer-1"></div>
                 <div class="tree-layer layer-2"></div>
@@ -59,8 +78,8 @@
             </div>
         </div>
 
-        <!-- Luci natalizie superiori -->
-        <div class="string-lights">
+        <!-- Luci natalizie -->
+        <div class="string-lights" aria-hidden="true">
             <div class="light red"></div>
             <div class="light yellow"></div>
             <div class="light blue"></div>
@@ -69,24 +88,22 @@
             <div class="light yellow"></div>
             <div class="light blue"></div>
             <div class="light green"></div>
-            <div class="light red"></div>
-            <div class="light yellow"></div>
         </div>
 
-        <!-- Card principale con eff    etto 3D -->
-        <div class="card-container">
-            <div class ="card-3d">
-                <div class="card-face card-front">
-                    <div class="ornaments">
+        <!-- Card principale -->
+        <main class="card-container">
+            <div class="card-3d">
+                <article class="card-face">
+                    <div class="ornaments" aria-hidden="true">
                         <div class="ornament red"></div>
                         <div class="ornament gold"></div>
                         <div class="ornament silver"></div>
                     </div>
                     
                     <h1 class="title-main">
-                        <span class="title-word">Buon<br></span>
-                        <span class="title-word">Natale!<br></span>
-                        <span class="title-emoji">🎄<br></span>
+                        <span class="title-word">Buon</span>
+                        <span class="title-word">Natale!</span>
+                        <span class="title-emoji" aria-hidden="true">🎄</span>
                     </h1>
                     
                     <div class="message-box">
@@ -98,65 +115,63 @@
                             <span class="line">Allloraaa, prima di tutto ti auguro un buon Natale</span>
                             <span class="line">e un felice anno nuovo,</span>
                             <span class="line">spero che ti porti cose belle e ti riempia di gioia.</span>
-                            <span class="line">E magari questo è l’anno buono per ricordarti del mio compleanno:</span>
+                            <span class="line">E magari questo è l'anno buono per ricordarti del mio compleanno:</span>
                             <span class="line highlight">il 5 maggio</span>
                         </p>
                         <p class="message-text">
+                            <span class="line">Questo sito rimarrà per sempre online</span>
+                            <span class="line">visitabile da chiunque e ovunque</span>
+                            <span class="line">in memoria della nostra stupenda amicizia</span>
+
+                        </p>
+                        <p class="message-text">
                             <span class="line">Grazie per essere un'amica fantastica.</span>
-                            <span class="line">Rinnovo il contratto anche per il prossimo anno, dai…</span>
-                            <span class="line">✨✨✨✨✨✨✨✨✨✨</span>
+                            <span class="line">E di sopportarmi nonostante a volte sono io il semo...Grazie.</span>
+                            <span class="line">Rinnovo il contratto anche per il prossimo anno dai…</span>
+                            <span class="line">✨✨✨✨✨✨✨✨</span>
                         </p>
                         <p class="message-final">
                             Buone Feste! 🎅🎁
                         </p>
                     </div>
-
-
-                </div>
+                </article>
             </div>
-        </div>
+        </main>
 
         <!-- Regali decorativi -->
-        <div class="gifts">
+        <div class="gifts" aria-hidden="true">
             <div class="gift gift-1"></div>
             <div class="gift gift-2"></div>
             <div class="gift gift-3"></div>
         </div>
     </div>
 
-    <!-- Pagina Countdown -->
+    <!-- ========== PAGINA COUNTDOWN ========== -->
     <div id="countdownPage" class="page">
-        <!-- Neve per countdown page -->
-        <div class="snow-container"></div>
+        <div class="snow-container" aria-hidden="true"></div>
+        <div class="particles" aria-hidden="true"></div>
 
-        <!-- Background particelle -->
-        <div class="particles"></div>
-
-        <div class="countdown-container">
-
-            <div class="countdown-card">
+        <main class="countdown-container">
+            <article class="countdown-card">
                 <h2 class="countdown-header">
-                    <span class="header-icon">⏰</span>
+                    <span class="header-icon" aria-hidden="true">⏰</span>
                     <span class="header-text">Countdown Speciale</span>
                 </h2>
-                <p class="countdown-tagline">semaa, così magari noon te lo dimentichi nel 2026</p>
+                <p class="countdown-tagline">semaa, così magari noon te lo dimentichi nel 2026....scherzo ovviamente</p>
 
-                <div class="timer-display">
+                <div class="timer-display" role="timer" aria-live="polite">
                     <div class="timer-unit">
                         <div class="timer-value" id="days">000</div>
                         <div class="timer-label">Giorni</div>
                     </div>
-                    <div class="timer-separator">:</div>
                     <div class="timer-unit">
                         <div class="timer-value" id="hours">00</div>
                         <div class="timer-label">Ore</div>
                     </div>
-                    <div class="timer-separator">:</div>
                     <div class="timer-unit">
                         <div class="timer-value" id="minutes">00</div>
                         <div class="timer-label">Minuti</div>
                     </div>
-                    <div class="timer-separator">:</div>
                     <div class="timer-unit">
                         <div class="timer-value" id="seconds">00</div>
                         <div class="timer-label">Secondi</div>
@@ -164,43 +179,33 @@
                 </div>
 
                 <div class="target-info">
-                    <span class="target-icon">🎂</span>
-                    <span class="target-text">5 Maggio 2025</span>
-                    <span class="target-icon">🎉</span>
+                    <span class="target-icon" aria-hidden="true">🎂</span>
+                    <span class="target-text">5 Maggio 2026</span>
+                    <span class="target-icon" aria-hidden="true">🎉</span>
                 </div>
 
                 <div class="birthday-message">
                     <p>Come si fa a dimenticarsi un giorno così importante???? 🤔🤔🤔🤔</p>
                 </div>
-            </div>
-        </div>
+            </article>
+        </main>
     </div>
 
-    <div id="pwa-install-banner" class="pwa-banner">
+    <!-- Banner PWA -->
+    <div id="pwa-install-banner" class="pwa-banner" role="dialog" aria-labelledby="pwa-title">
         <div class="pwa-content">
-            <span class="pwa-icon">📲</span>
+            <span class="pwa-icon" aria-hidden="true">📲</span>
             <div class="pwa-text">
-                <strong>Installa!!!!!!!</strong>
-                <p>Installa subito questa pagina così ti ricorderai sempre di me (e del mio compleanno, scema) 😊😊😊</p>
+                <strong id="pwa-title">Installa!!!!!!!</strong>
+                <p style="font-size: 1.1rem;">Installa subito questa pagina così ti ricorderai sempre di me e del bellissimo anno che abbiamo passato insieme   😊😊😊</p>
             </div>
             <div class="pwa-buttons">
-                <button id="pwa-install-btn" class="pwa-btn confirm">Installa</button>
-                <button id="pwa-dismiss-btn" class="pwa-btn cancel">No, grazie</button>
+                <button id="pwa-install-btn" class="pwa-btn confirm" type="button">Installa</button>
+                <button id="pwa-dismiss-btn" class="pwa-btn cancel" type="button">No, grazie</button>
             </div>
         </div>
     </div>
 
     <script src="script.js"></script>
-
-    <script>
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => {
-                navigator.serviceWorker.register("./sw.js")
-                    .then(reg => console.log("SW registrato con successo:", reg.scope))
-                    .catch(err => console.error("Errore registrazione SW:", err));
-            });
-        }
-
-    </script>
 </body>
 </html>

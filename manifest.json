@@ -2,7 +2,7 @@
   "name": "Miglior regalo 🎄",
   "short_name": "Regalo Stefy",
   "description": "Un promemoria speciale per non dimenticare il 5 maggio!",
-  "start_url": "/",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#466fea",
   "theme_color": "#c41e3a",
